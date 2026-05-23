@@ -140,12 +140,22 @@ df_beta
 df_beta |>
   ggplot(aes(Var1, Var2, fill = Índice, label = Índice)) +
   geom_tile(color = "black", linewidth = 1) +
-  geom_text(size = 5) +
+  geom_text(size = 4.5) +
   coord_equal() +
   facet_wrap(~tipo) +
   labs(x = NULL,
        y = NULL) +
+  scale_fill_viridis_c(limits = c(0, 1),
+                       guide = guide_colourbar(title.position = "top",
+                                               title.hjust = 0.5,
+                                               barwidth = 25,
+                                               frame.colour = "black",
+                                               frame.linewidth = 1,
+                                               ticks.colour = "black",
+                                               ticks.linewidth = 1)) +
+  theme_classic() +
   theme(axis.text = element_text(size = 17.5),
+        axis.text.x = element_text(angle = 45, hjust = 1),
         axis.title = element_text(size = 20),
         panel.grid = element_line(linetype = "dashed",
                                   color = "gray",
@@ -153,5 +163,9 @@ df_beta |>
         panel.grid.minor = element_blank(),
         legend.text = element_text(size = 17.5),
         legend.title = element_text(size = 20),
-        legend.position = "bottom") +
+        legend.position = "bottom",
+        strip.text = element_text(size = 25)) +
   ggview::canvas(height = 10, width = 12)
+
+ggsave(filename = "indices_diversidade.png",
+       height = 10, width = 12)
