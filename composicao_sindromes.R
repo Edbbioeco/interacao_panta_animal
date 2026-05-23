@@ -117,7 +117,8 @@ df_beta <- purrr::map2(1:3,
     reshape2::melt() |>
     dplyr::filter(Var2 != Var1) |>
     dplyr::rename("Índice" = value) |>
-    dplyr::mutate(tipo = paste0(indice,
+    dplyr::mutate(Índice = Índice |> round(2),
+                  tipo = paste0(indice,
                                 " = ",
                                 indices[[id]] |> round(2)))
 
