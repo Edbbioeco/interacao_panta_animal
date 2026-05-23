@@ -126,3 +126,24 @@ df_beta <- purrr::map2(1:3,
   dplyr::bind_rows()
 
 df_beta
+
+### Gráfico ----
+
+df_beta |>
+  ggplot(aes(Var1, Var2, fill = Índice, label = Índice)) +
+  geom_tile(color = "black", linewidth = 1) +
+  geom_text(size = 5) +
+  coord_equal() +
+  facet_wrap(~tipo) +
+  labs(x = NULL,
+       y = NULL) +
+  theme(axis.text = element_text(size = 17.5),
+        axis.title = element_text(size = 20),
+        panel.grid = element_line(linetype = "dashed",
+                                  color = "gray",
+                                  linewidth = 1),
+        panel.grid.minor = element_blank(),
+        legend.text = element_text(size = 17.5),
+        legend.title = element_text(size = 20),
+        legend.position = "bottom") +
+  ggview::canvas(height = 10, width = 12)
