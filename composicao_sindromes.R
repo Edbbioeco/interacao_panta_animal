@@ -108,13 +108,18 @@ df_beta <- purrr::map2(1:3,
                        c("Substituição", "Aninhamento", "Jaccard"),
                        \(id, indice){
 
-  comp |>
+  matriz <- comp |>
     tibble::column_to_rownames(var = "Amostra") |>
     dplyr::select(dplyr::where(is.numeric)) |>
     betapart::beta.pair(index.family = "jaccard") %>%
     .[[id]] |>
-    as.matrix() |>
+    as.matrix()
+
+  matriz[upper.tri(matriz)] <- NA
+
+  matriz |>
     reshape2::melt() |>
+    tidyr::drop_na() |>
     dplyr::filter(Var2 != Var1) |>
     dplyr::rename("Índice" = value) |>
     dplyr::mutate(Índice = Índice |> round(2),
@@ -123,7 +128,10 @@ df_beta <- purrr::map2(1:3,
                                 indices[[id]] |> round(2)))
 
   }) |>
-  dplyr::bind_rows()
+  dplyr::bind_rows() |>
+  dplyr::mutate(tipo = tipo |> forcats::fct_relevel(c("Jaccard = 0.89",
+                                                      "Substituição = 0.87",
+                                                      "Aninhamento = 0.02")))
 
 df_beta
 
