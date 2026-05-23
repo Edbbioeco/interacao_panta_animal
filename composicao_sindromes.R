@@ -88,3 +88,14 @@ nmds_df |>
 
 ggsave(filename = "nmds.png",
        height = 10, width = 12)
+
+# Índices de diversidade beta ----
+
+## Índices ----
+
+indices <- comp |>
+  tibble::column_to_rownames(var = "Amostra") |>
+  dplyr::select(dplyr::where(is.numeric)) |>
+  betapart::beta.multi(index.family = "jaccard")
+
+indices
