@@ -19,7 +19,17 @@ library(betapart)
 comp <- readxl::read_xlsx("Base de dados dispersão.xlsx",
                           sheet = 2)
 
-### Visualizar ----
+## Visualizar ----
+
+comp
+
+comp |> dplyr::glimpse()
+
+## Tratar ----
+
+comp <- comp |>
+  dplyr::mutate(Tratamento = c(rep("Bloco 1", 5),
+                               rep("Bloco 2", 4)))
 
 comp
 
