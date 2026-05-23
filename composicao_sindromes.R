@@ -51,3 +51,12 @@ comp_bray
 vegan::adonis2(comp_bray ~ Tratamento,
                data = comp,
                permutations = 1000)
+
+## NMDS ----
+
+### Calcular ----
+
+nmds <- comp_bray |>
+  vegan::metaMDS()
+
+nmds
