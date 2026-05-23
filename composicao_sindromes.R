@@ -85,3 +85,6 @@ nmds_df |>
         legend.title = element_text(size = 20),
         legend.position = "bottom") +
   ggview::canvas(height = 10, width = 12)
+
+ggsave(filename = "nmds.png",
+       height = 10, width = 12)
