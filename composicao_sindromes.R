@@ -60,3 +60,11 @@ nmds <- comp_bray |>
   vegan::metaMDS()
 
 nmds
+
+### Visualizar ----
+
+nmds_df <- nmds |>
+  vegan::scores() |>
+  dplyr::bind_cols(comp |> dplyr::select(1, 9))
+
+nmds_df
