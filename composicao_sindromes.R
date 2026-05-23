@@ -34,3 +34,14 @@ comp <- comp |>
 comp
 
 comp |> dplyr::glimpse()
+
+# Testar composição ----
+
+## Matriz de composição ----
+
+comp_bray <- comp |>
+  tibble::column_to_rownames(var = "Amostra") |>
+  dplyr::select(dplyr::where(is.numeric)) |>
+  vegan::vegdist(method = "bray")
+
+comp_bray
