@@ -99,3 +99,29 @@ indices <- comp |>
   betapart::beta.multi(index.family = "jaccard")
 
 indices
+
+## Par-a-par ----
+
+### Calcular ----
+
+df_beta <- purrr::map2(1:3,
+                       c("Substituição", "Aninhamento", "Jaccard"),
+                       \(id, indice){
+
+  comp |>
+    tibble::column_to_rownames(var = "Amostra") |>
+    dplyr::select(dplyr::where(is.numeric)) |>
+    betapart::beta.pair(index.family = "jaccard") %>%
+    .[[id]] |>
+    as.matrix() |>
+    reshape2::melt() |>
+    dplyr::filter(Var2 != Var1) |>
+    dplyr::rename("Índice" = value) |>
+    dplyr::mutate(tipo = paste0(indice,
+                                " = ",
+                                indices[[id]] |> round(2)))
+
+  }) |>
+  dplyr::bind_rows()
+
+df_beta
