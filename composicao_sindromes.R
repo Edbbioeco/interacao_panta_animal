@@ -45,3 +45,9 @@ comp_bray <- comp |>
   vegan::vegdist(method = "bray")
 
 comp_bray
+
+## Permanova ----
+
+vegan::adonis2(comp_bray ~ Tratamento,
+               data = comp,
+               permutations = 1000)
