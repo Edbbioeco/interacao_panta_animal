@@ -68,3 +68,20 @@ nmds_df <- nmds |>
   dplyr::bind_cols(comp |> dplyr::select(1, 9))
 
 nmds_df
+
+nmds_df |>
+  ggplot(aes(NMDS1, NMDS2, fill = Tratamento, label = Amostra)) +
+  geom_label(size = 7.5) +
+  scale_color_manual(values=c("orange", "royalblue")) +
+  scale_fill_manual(values=c("orange", "royalblue")) +
+  theme_classic() +
+  theme(axis.text = element_text(size = 17.5),
+        axis.title = element_text(size = 20),
+        panel.grid = element_line(linetype = "dashed",
+                                  color = "gray",
+                                  linewidth = 1),
+        panel.grid.minor = element_blank(),
+        legend.text = element_text(size = 17.5),
+        legend.title = element_text(size = 20),
+        legend.position = "bottom") +
+  ggview::canvas(height = 10, width = 12)
